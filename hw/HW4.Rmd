@@ -412,13 +412,12 @@ stimuli_data
 
 Use appropriate statistical test to answer the following question: are there any statistically significant difference in logarithm of reaction time for different conditions (types of stimuli)? Choose the test and provide justification for your choice. Provide your code, results and interpretation. What is your answer to the question?
 
-Выбираю тест хи-квадрат, так как он подходит для анализа корреляции переменных, одна из которых категориальная, а другая числовая
+Выбираю тест anova, так как он подходит для множественных сравнений.
 
 
 ```{r}
-res <- chisq.test(stimuli_data$TypeOfStimuli, stimuli_data$`mean(RTlog)`)
-res
-
+time.lm <- lm(`mean(RTlog)` ~ TypeOfStimuli, data = stimuli_data)
+aov(time.lm)
 ```
 
 Не отклоняем нулевую гипотезу.
@@ -433,7 +432,6 @@ If we compare means for several (more than two) groups and reject null hypothesi
 
 Apply `TukeyHSD` to the result of 3.2 and report which pair of conditions has statistically significant difference between logarithms of reaction time.
 
-К результатам хи-квадрат теста применить метод не получилось, поэтому воспользуюсь aov и применю к его результатам.
 
 Если не смотреть на филеры.
 Везде фигурирует Size-Nationality. На эту пару довольно сложно придумать адекватные примеры.
